@@ -1,0 +1,9 @@
+@model TaskItem
+<div>
+    <form asp-action="Edit" id="form-action" method="post" role="form">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" />
+        <span asp-validation-for="Description" />
+        <input type="submit" id="form-button" value="Edit task" />
+</form>
+</div>

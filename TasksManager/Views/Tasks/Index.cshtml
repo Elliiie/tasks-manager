@@ -25,6 +25,9 @@
                             }
                         </td>
                         <td>
+                            @Html.ActionLink("Edit", "Edit", new { Id = task.Id })
+                        </td>
+                        <td>
                             @Html.ActionLink("Delete", "Delete", new { Id = task.Id })
                         </td>
                     </tr>

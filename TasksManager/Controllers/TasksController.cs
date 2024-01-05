@@ -63,14 +63,7 @@ public class TasksController : Controller
                 command.CommandText = $"INSERT INTO Task (Description, Done, Author) VALUES (@description, false, @username)";
                 command.Parameters.AddWithValue("@description", task.Description);
                 command.Parameters.AddWithValue("@username", HttpContext.Session.GetString("Username"));
-                try
-                {
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                command.ExecuteNonQuery();
             }
         }
 
@@ -85,14 +78,7 @@ public class TasksController : Controller
             {
                 connection.Open();
                 command.CommandText = $"DELETE FROM Task WHERE Id={Id}";
-                try
-                {
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                command.ExecuteNonQuery();
             }
         }
         return Redirect("http://localhost:5041/Tasks"); 
@@ -106,16 +92,53 @@ public class TasksController : Controller
             {
                 connection.Open();
                 command.CommandText = $"UPDATE Task SET Done={Done} WHERE Id={Id}";
-                try
-                {
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                command.ExecuteNonQuery();
             }
         }
         return Redirect("http://localhost:5041/Tasks"); 
+    }
+
+    public ActionResult Edit(int Id)
+    {
+        Models.TaskItem task = new();
+
+        using (SqliteConnection connection = new SqliteConnection("Data Source=db.sqlite"))
+        {
+            using (var command = connection.CreateCommand())
+            {
+                connection.Open();
+                command.CommandText = $"SELECT * FROM Task WHERE Id={Id}";
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            task.Id = reader.GetInt32(0);
+                            task.Description = reader.GetString(1);
+                        }
+                    }
+                }
+            }
+        }
+        return View(task);
+    }
+
+    [HttpPost]
+    public RedirectResult Edit(TasksManager.Models.TaskItem task)
+    {
+        using (SqliteConnection connection = new SqliteConnection("Data Source=db.sqlite"))
+        {
+            using (var command = connection.CreateCommand())
+            {
+                connection.Open();
+                command.CommandText = $"UPDATE Task SET Description=@description WHERE Id={task.Id}";
+                command.Parameters.AddWithValue("@description", task.Description);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        return Redirect("http://localhost:5041/Tasks");  
     }
 }
