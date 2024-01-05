@@ -22,16 +22,32 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/elenageorgieva/Documents/uni/c\#/project/tasks-manager/TasksManager/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
+[/Users/elenageorgieva/Documents/uni/c\#/project/tasks-manager/TasksManager/Views/Login/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTG9naW4vSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/elenageorgieva/Documents/uni/c\#/project/tasks-manager/TasksManager/Views/Shared/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+[/Users/elenageorgieva/Documents/uni/c\#/project/tasks-manager/TasksManager/Views/Login/LoginForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTG9naW4vTG9naW5Gb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/elenageorgieva/Documents/uni/c\#/project/tasks-manager/TasksManager/Views/Registration/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/elenageorgieva/Documents/uni/c\#/project/tasks-manager/TasksManager/Views/Registration/RegistrationForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uL1JlZ2lzdHJhdGlvbkZvcm0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/elenageorgieva/Documents/uni/c\#/project/tasks-manager/TasksManager/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/elenageorgieva/Documents/uni/c\#/project/tasks-manager/TasksManager/Views/Tasks/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVGFza3MvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/elenageorgieva/Documents/uni/c\#/project/tasks-manager/TasksManager/Views/Tasks/TaskForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVGFza3MvVGFza0Zvcm0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/elenageorgieva/Documents/uni/c\#/project/tasks-manager/TasksManager/Views/_ViewImports.cshtml]

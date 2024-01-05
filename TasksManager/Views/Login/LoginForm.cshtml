@@ -1,0 +1,10 @@
+@model User
+
+<form asp-action="Insert" id="form-action" method="post" role="form">
+    <div asp-validation-summary="All"></div>
+        <label asp-for="Username"></label>
+        <input asp-for="Username"/>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" />
+        <input type="submit" id="form-button" value="Login" />
+</form>

@@ -1,0 +1,10 @@
+@model TasksViewModel
+
+<form asp-action="Insert" id="form-action" method="post" role="form">
+    <div asp-validation-summary="All"></div>
+        <label asp-for="Task.Description"></label>
+        <input asp-for="Task.Id" type="hidden" />
+        <input asp-for="Task.Description" />
+        <span asp-validation-for="Task.Description" />
+        <input type="submit" id="form-button" value="Add task" />
+</form>

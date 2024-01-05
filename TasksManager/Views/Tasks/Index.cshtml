@@ -1,0 +1,35 @@
+@model TasksViewModel
+        <div>
+            @Html.Partial("TaskForm")
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Is Done</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model.TasksList)
+                {
+                    <tr>
+                        <td class="tasks-column">@task.Description</td>
+                        <td class="tasks-column">@task.IsDone</td>
+                        <td>
+                            @if(task.IsDone)
+                            {
+                                @Html.ActionLink("Mark undone", "IsDone", new { Id = task.Id, Done = false })
+                            } else 
+                            {
+                                @Html.ActionLink("Mark done", "IsDone", new { Id = task.Id, Done = true })
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", new { Id = task.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

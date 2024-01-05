@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "cimjOjvKAMQxLeFl+6Us1Wk0lYdH1RHXrrN/90LkAxEGkXtYgctmJerLU02zMbP3PrzbJAMElpiMSczpJ4/5ZQ==",
+  "dgSpecHash": "KnijHGrwjF+5T97n/R22Xqb00SbxUVZulkQ/7fwzv7I4+3mk9Id05S15qDvEHml8nd8FdMF/f930TxHw+twcxg==",
   "success": true,
   "projectFilePath": "/Users/elenageorgieva/Documents/uni/c#/project/tasks-manager/TasksManager/TasksManager.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/elenageorgieva/.nuget/packages/microsoft.data.sqlite/8.0.0/microsoft.data.sqlite.8.0.0.nupkg.sha512",
+    "/Users/elenageorgieva/.nuget/packages/microsoft.data.sqlite.core/8.0.0/microsoft.data.sqlite.core.8.0.0.nupkg.sha512",
+    "/Users/elenageorgieva/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.6/sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
+    "/Users/elenageorgieva/.nuget/packages/sqlitepclraw.core/2.1.6/sqlitepclraw.core.2.1.6.nupkg.sha512",
+    "/Users/elenageorgieva/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.6/sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",
+    "/Users/elenageorgieva/.nuget/packages/sqlitepclraw.provider.e_sqlite3/2.1.6/sqlitepclraw.provider.e_sqlite3.2.1.6.nupkg.sha512",
+    "/Users/elenageorgieva/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512"
+  ],
   "logs": []
 }
