@@ -24,7 +24,7 @@ public class RegistrationController : Controller
                 using (var command = connection.CreateCommand())
                 {
                     connection.Open();
-                    command.CommandText = $"INSERT INTO User VALUES (@username, @email, @password)";
+                    command.CommandText = $"INSERT INTO User VALUES (@username, @email, @password, @role)";
                     command.Parameters.AddWithValue("@username", user.Username);
                     command.Parameters.AddWithValue("@email", user.Email);
 
@@ -33,6 +33,8 @@ public class RegistrationController : Controller
                         string passwordHash = GetStringFromHash(shaM.ComputeHash(Encoding.UTF8.GetBytes(user.Password)));
                         command.Parameters.AddWithValue("@password", passwordHash);
                     }
+
+                    command.Parameters.AddWithValue("@role", Role.User);
 
                     command.ExecuteNonQuery();
                 }

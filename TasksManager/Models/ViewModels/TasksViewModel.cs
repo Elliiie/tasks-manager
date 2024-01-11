@@ -4,5 +4,7 @@ namespace TasksManager.Models.ViewModels
     {
         public List<TaskItem> TasksList { get; set; }
         public TaskItem Task { get; set; }
+        public List<string> Usernames { get; set; }
+        public string SelectedAssignee { get; set; }
     }
 }

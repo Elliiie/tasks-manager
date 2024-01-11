@@ -7,6 +7,8 @@
                 <tr>
                     <th scope="col">Description</th>
                     <th scope="col">Is Done</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Assignee</th>
                 </tr>
             </thead>
             <tbody>
@@ -15,6 +17,16 @@
                     <tr>
                         <td class="tasks-column">@task.Description</td>
                         <td class="tasks-column">@task.IsDone</td>
+                        <td class="tasks-column">@task.AuthorUsername</td>
+                        <td class="tasks-column">
+                            @if(Model.Usernames.Any())
+                            {
+                                @Html.DropDownListFor(model => model.SelectedAssignee, Model.Usernames.Select( username => new SelectListItem { Value = username , Text = username }), "Select assignee", null);
+                                @Html.ActionLink("Assign", "Assign", new { taskId = task.Id, assignee = Model.SelectedAssignee })
+                            }
+
+                        </td>
+                        <td class="tasks-column">@task.AssigneeUsername</td>
                         <td>
                             @if(task.IsDone)
                             {

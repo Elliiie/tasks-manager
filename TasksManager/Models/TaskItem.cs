@@ -5,6 +5,7 @@ namespace TasksManager.Models
         public int Id { get; set; }
         public string Description { get; set; }
         public bool IsDone { get; set; }
-        public User user { get; set; }
+        public string AuthorUsername { get; set; }
+        public string AssigneeUsername { get; set; }
     }
 }
