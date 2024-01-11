@@ -28,7 +28,7 @@ public class TasksController : Controller
             using (var command = connection.CreateCommand())
             {
                 connection.Open();
-                command.CommandText = "SELECT * FROM Task WHERE Author=@author";
+                command.CommandText = "SELECT * FROM Task WHERE Author=@author OR Assignee=@author";
                 command.Parameters.AddWithValue("@author", HttpContext.Session.GetString("Username"));
 
                 using (var reader = command.ExecuteReader())
@@ -44,7 +44,8 @@ public class TasksController : Controller
                                     Description = reader.GetString(1),
                                     IsDone = reader.GetBoolean(2),
                                     AuthorUsername = reader.GetString(3),
-                                    AssigneeUsername = reader.IsDBNull(4) ? "NO ASSIGNEE" : reader.GetString(4)
+                                    AssigneeUsername = reader.IsDBNull(4) ? "NO ASSIGNEE" : reader.GetString(4),
+                                    Title = reader.GetString(5),
                                 }
                             );
                         }
@@ -58,6 +59,8 @@ public class TasksController : Controller
     internal List<String> FetchUserIfAllowed() 
     {
         List<String> Usernames = new();
+        if (!havePermission()) { return Usernames; }
+
         using (SqliteConnection connection = new SqliteConnection("Data Source=db.sqlite"))
         {
             using (var command = connection.CreateCommand())
@@ -82,6 +85,29 @@ public class TasksController : Controller
         return Usernames;
     }
 
+    internal bool havePermission()
+    {
+        using (SqliteConnection connection = new SqliteConnection("Data Source=db.sqlite"))
+        {
+            using (var command = connection.CreateCommand())
+            {
+                connection.Open();
+                command.CommandText = "SELECT * FROM User WHERE Username=@username";
+                command.Parameters.AddWithValue("@username", HttpContext.Session.GetString("Username"));
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                            return reader.GetString(3) == Role.Admin.Value;
+                    }
+                    
+                }
+            }
+        }
+        return false;
+    }
+
     public RedirectResult Insert(TasksManager.Models.TaskItem task)
     {
         using (SqliteConnection connection = new SqliteConnection("Data Source=db.sqlite"))
@@ -89,7 +115,8 @@ public class TasksController : Controller
             using (var command = connection.CreateCommand())
             {
                 connection.Open();
-                command.CommandText = $"INSERT INTO Task (Description, Done, Author, Assignee) VALUES (@description, false, @username, @username)";
+                command.CommandText = $"INSERT INTO Task (Description, Done, Author, Assignee, Title) VALUES (@description, false, @username, @username, @title)";
+                command.Parameters.AddWithValue("@title", task.Title);
                 command.Parameters.AddWithValue("@description", task.Description);
                 command.Parameters.AddWithValue("@username", HttpContext.Session.GetString("Username"));
                 command.ExecuteNonQuery();
@@ -171,17 +198,18 @@ public class TasksController : Controller
         return Redirect("http://localhost:5041/Tasks");  
     }
 
-    public RedirectResult Assign(int taskId, string assignee)
+    [HttpPost]
+    public RedirectResult Assign(TasksViewModel viewModel, int taskId)
     {
+        Console.WriteLine(viewModel.SelectedAssignee);
         Console.WriteLine(taskId);
-        Console.WriteLine(assignee);
         using (SqliteConnection connection = new SqliteConnection("Data Source=db.sqlite"))
         {
             using (var command = connection.CreateCommand())
             {
                 connection.Open();
                 command.CommandText = $"UPDATE Task SET Assignee=@assignee WHERE Id={taskId}";
-                command.Parameters.AddWithValue("@assignee", assignee);
+                command.Parameters.AddWithValue("@assignee", viewModel.SelectedAssignee);
                 command.ExecuteNonQuery();
             }
         }

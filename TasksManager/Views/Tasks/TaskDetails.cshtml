@@ -1,0 +1,25 @@
+@model TaskItem
+
+ <div>
+    <h4><b>@Model.Title</b></h4>
+    <p>Author: @Model.AuthorUsername</p>
+    <p>Assignee: @Model.AssigneeUsername</p>
+    <p>Status: @Model.Status</p>
+    <p>Description: @Model.Description</p>
+    <p>
+        @if(Model.IsDone)
+        {
+            @Html.ActionLink("Mark undone", "IsDone", new { Id = Model.Id, Done = false })
+        } else 
+        {
+            @Html.ActionLink("Mark done", "IsDone", new { Id = Model.Id, Done = true })
+        }
+
+        @Html.ActionLink("Edit", "Edit", new { Id = Model.Id })
+
+        @if(Model.AssigneeUsername == @Model.AuthorUsername)
+        {
+            @Html.ActionLink("Delete", "Delete", new { Id = Model.Id })
+        }
+    </p>
+</div> 

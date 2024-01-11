@@ -4,7 +4,6 @@ using TasksManager.Models.ViewModels;
 using System.Security.Cryptography;
 using System.Text;
 using TasksManager.Models;
-using System.Web;
 
 namespace TasksManager.Controllers;
 
@@ -34,7 +33,7 @@ public class RegistrationController : Controller
                         command.Parameters.AddWithValue("@password", passwordHash);
                     }
 
-                    command.Parameters.AddWithValue("@role", Role.User);
+                    command.Parameters.AddWithValue("@role", Role.User.Value);
 
                     command.ExecuteNonQuery();
                 }
