@@ -2,9 +2,18 @@
 
 <form asp-action="Insert" id="form-action" method="post" role="form">
     <div asp-validation-summary="All"></div>
-        <label asp-for="Username"></label>
-        <input asp-for="Username"/>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" type="password" />
-        <input type="submit" id="form-button" value="Login" />
+    <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Username" asp-for="Username"/>
+        <span asp-validation-for="Username" class="text-danger"></span>    
+    </div>
+    <div class="mb-3">
+        <input type="password" class="form-control" placeholder="Password" asp-for="Password"/>
+        <span asp-validation-for="Password" class="text-danger"></span>
+        <div id="passwordHelpBlock" class="form-text">
+        Your password must be 5-10 characters long.
+        </div>     
+    </div>
+    <div>
+        <input type="submit" class="btn btn-secondary" id="form-button" value="Login" />
+    </div>
 </form>

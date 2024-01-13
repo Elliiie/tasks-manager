@@ -1,25 +1,38 @@
 @model TaskItem
 
- <div>
+ <div class="row">
     <h4><b>@Model.Title</b></h4>
-    <p>Author: @Model.AuthorUsername</p>
-    <p>Assignee: @Model.AssigneeUsername</p>
-    <p>Status: @Model.Status</p>
-    <p>Description: @Model.Description</p>
-    <p>
-        @if(Model.IsDone)
-        {
-            @Html.ActionLink("Mark undone", "IsDone", new { Id = Model.Id, Done = false })
-        } else 
-        {
-            @Html.ActionLink("Mark done", "IsDone", new { Id = Model.Id, Done = true })
-        }
-
+ </div>
+ <div class="row">
+    <div class="col-lg">
+    <p><b>Description</b> @Model.Description</p>
+    </div>
+    <div class="col-md">
+        <p><b>Author</b> @Model.AuthorUsername</p>
+        <p><b>Assignee</b> @Model.AssigneeUsername</p>
+        <p><b>Status</b> @Model.Status</p>
+    </div>
+ </div>
+ <div class="row">
+     <div class="col-lg">
         @Html.ActionLink("Edit", "Edit", new { Id = Model.Id })
 
         @if(Model.AssigneeUsername == @Model.AuthorUsername)
         {
             @Html.ActionLink("Delete", "Delete", new { Id = Model.Id })
         }
-    </p>
+    </div>
+    <div class="col-md">
+        <p>
+            @if(Model.IsDone)
+            {
+                @Html.ActionLink("Mark undone", "IsDone", new { Id = Model.Id, Done = false })
+            } else 
+            {
+                @Html.ActionLink("Mark done", "IsDone", new { Id = Model.Id, Done = true })
+            }
+
+            
+        </p>
+    </div>
 </div> 

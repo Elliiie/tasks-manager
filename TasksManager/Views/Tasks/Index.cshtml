@@ -1,21 +1,27 @@
 @model TasksViewModel
+
 <div>
-    <div>
+    <div class="container p-3 my-3 border" style="background-color: aliceblue">
+        <div>
+            <h3 class="text-center">Create new task</h3>
+        </div>
         @Html.Partial("TaskForm")
     </div>
     @foreach (var task in Model.TasksList)
     {
-        @Html.Partial("TaskDetails", task)
+        <div class="container p-3 my-3 border" style="border-width: 2px;">
+            @Html.Partial("TaskDetails", task)
 
-        @if(Model.Usernames.Any())
-        {
-            @using (Html.BeginForm("Assign", "Tasks", FormMethod.Post))
+            @if(Model.Usernames.Any())
             {
-                @Html.DropDownListFor(m => m.SelectedAssignee, new SelectList(Model.Usernames), "Select assignee");
-                @Html.Hidden("taskId", task.Id);
-                @Html.Hidden("assignee", Model.SelectedAssignee);
-                <input type="submit" value="Assign" />
+                @using (Html.BeginForm("Assign", "Tasks", FormMethod.Post))
+                {
+                    @Html.DropDownListFor(m => m.SelectedAssignee, new SelectList(Model.Usernames), "Select assignee");
+                    @Html.Hidden("taskId", task.Id);
+                    @Html.Hidden("assignee", Model.SelectedAssignee);
+                    <input type="submit" value="Assign" />
+                }
             }
-        }
+        </div>
     }
 </div>
