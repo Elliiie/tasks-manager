@@ -1,6 +1,6 @@
 @model User
 
-<form asp-action="Insert" id="form-action" method="post" role="form">
+<form asp-action="Insert" method="post" role="form">
     <div asp-validation-summary="All"></div>
     <div class="mb-3">
         <input type="text" class="form-control" placeholder="Username" asp-for="Username"/>
@@ -8,12 +8,9 @@
     </div>
     <div class="mb-3">
         <input type="password" class="form-control" placeholder="Password" asp-for="Password"/>
-        <span asp-validation-for="Password" class="text-danger"></span>
-        <div id="passwordHelpBlock" class="form-text">
-        Your password must be 5-10 characters long.
-        </div>     
+        <span asp-validation-for="Password" class="text-danger"></span>  
     </div>
     <div>
-        <input type="submit" class="btn btn-secondary" id="form-button" value="Login" />
+        <input type="submit" class="btn btn-secondary" value="Login" />
     </div>
 </form>

@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace TasksManager.Models
 {
@@ -20,8 +21,11 @@ namespace TasksManager.Models
 
     public class User 
     {
+        [Required(ErrorMessage = "Please enter username")] 
         public string Username { get; set; }
+        [Required(ErrorMessage = "Please enter a valid email")] 
         public string Email { get; set; }
+        [Required(ErrorMessage = "Please enter password")] 
         public string Password { get; set; }
         public Role Role { get; set; }
         public List<TaskItem> Tasks { get; set; }

@@ -10,18 +10,40 @@
     @foreach (var task in Model.TasksList)
     {
         <div class="container p-3 my-3 border" style="border-width: 2px;">
+
             @Html.Partial("TaskDetails", task)
 
-            @if(Model.Usernames.Any())
-            {
-                @using (Html.BeginForm("Assign", "Tasks", FormMethod.Post))
-                {
-                    @Html.DropDownListFor(m => m.SelectedAssignee, new SelectList(Model.Usernames), "Select assignee");
-                    @Html.Hidden("taskId", task.Id);
-                    @Html.Hidden("assignee", Model.SelectedAssignee);
-                    <input type="submit" value="Assign" />
-                }
-            }
+            <div class="row" style="padding-bottom: 10px;"> 
+                <div class="col-lg">
+                    @Html.ActionLink("Edit", "Edit", new { Id = task.Id })
+
+                    @if(task.CanBeDeleted)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { Id = task.Id })
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    @if(Model.Usernames.Any())
+                    {
+                        @using (Html.BeginForm("Assign", "Tasks", FormMethod.Post))
+                        {
+                            @Html.DropDownListFor(m => m.SelectedAssignee, new SelectList(Model.Usernames), "Select assignee");
+                            @Html.Hidden("taskId", task.Id);
+                            <input type="submit" value="Assign" />
+                        }
+                    }
+                </div>
+                <div class="col-md">
+                    @using (Html.BeginForm("ChangeStatus", "Tasks", FormMethod.Post))
+                    {
+                        @Html.DropDownListFor(m => m.SelectedStatus, new SelectList(TaskItem.TaskStatus.All), "Select status");
+                        @Html.Hidden("taskId", task.Id);
+                        <input type="submit" value="Change" />
+                    }
+                </div>
+            </div>
         </div>
     }
 </div>

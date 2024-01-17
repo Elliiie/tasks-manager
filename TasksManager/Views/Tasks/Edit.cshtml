@@ -1,9 +1,16 @@
 @model TaskItem
-<div>
-    <form asp-action="Edit" id="form-action" method="post" role="form">
-        <label asp-for="Description"></label>
-        <input asp-for="Description" />
-        <span asp-validation-for="Description" />
-        <input type="submit" id="form-button" value="Edit task" />
+
+<div class="container p-3 my-3 border" style="background-color: aliceblue">
+    <div>
+        <h3 class="text-center">Edit task</h3>
+    </div>
+    <form asp-action="Edit" method="post" role="form">
+        <div class="mb-3">
+            <textarea type="text" class="form-control" placeholder="Description" asp-for="Description"/>@Model.Description</textarea>
+            <span asp-validation-for="Description" />
+        </div>
+        <div>
+            <input type="submit" class="btn btn-secondary" value="Edit task" />
+        </div>
     </form>
 </div>

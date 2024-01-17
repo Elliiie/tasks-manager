@@ -1,6 +1,6 @@
 @model User
 
-<form asp-action="Insert" id="form-action" method="post" role="form">
+<form asp-action="Insert" method="post" role="form">
     <div asp-validation-summary="All"></div>
     <div class="mb-3">
         <input class="form-control" placeholder="Email" asp-for="Email" type="email" />
@@ -17,6 +17,6 @@
         </div>     
     </div>
     <div>
-        <input type="submit" class="btn btn-secondary" id="form-button" value="Sign up" />
+        <input type="submit" class="btn btn-secondary" value="Sign up" />
     </div>
 </form>

@@ -1,6 +1,6 @@
 @model TasksViewModel
 
-<form asp-action="Insert" id="form-action" method="post" role="form">
+<form asp-action="Insert" method="post" role="form">
     <div asp-validation-summary="All"></div>
     <div class="mb-3">
         <input type="text" class="form-control" placeholder="Title" asp-for="Task.Title"/>
@@ -11,6 +11,6 @@
         <span asp-validation-for="Task.Description" class="text-danger"></span>    
     </div>
     <div>
-        <input type="submit" class="btn btn-secondary" id="form-button" value="Add task" />
+        <input type="submit" class="btn btn-secondary" value="Add task" />
     </div>
 </form>

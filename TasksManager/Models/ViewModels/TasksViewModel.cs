@@ -6,5 +6,7 @@ namespace TasksManager.Models.ViewModels
         public TaskItem Task { get; set; }
         public List<string> Usernames { get; set; }
         public string SelectedAssignee { get; set; }
+        public string SelectedStatus { get; set; }
+
     }
 }
