@@ -21,19 +21,14 @@ public class LoginController : Controller
             {
                 connection.Open();
                 command.CommandText = $"SELECT * FROM User WHERE (Username=@username AND Password=@password)";
-                command.Parameters.AddWithValue("@username", user.Username);
-
-                using (SHA512 shaM = new SHA512Managed())
-                {
-                    string passwordHash = GetStringFromHash(shaM.ComputeHash(Encoding.UTF8.GetBytes(user.Password)));
-                    command.Parameters.AddWithValue("@password", passwordHash);
-                }
+                command.Parameters.AddWithValue("@username", user.Username.Trim());
+                command.Parameters.AddWithValue("@password", StringHelper.ComputeHash(user.Password));
 
                  using (var reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
-                        HttpContext.Session.SetString("Username", user.Username);
+                        HttpContext.Session.SetString("Username", user.Username.Trim());
                         return Redirect("http://localhost:5041/Tasks");
                     }
                 }
@@ -47,15 +42,5 @@ public class LoginController : Controller
     {
         HttpContext.Session.Clear();
         return Redirect("http://localhost:5041");
-    }
-
-    private static string GetStringFromHash(byte[] hash)
-    {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < hash.Length; i++)
-        {
-            result.Append(hash[i].ToString("X2"));
-        }
-        return result.ToString();
     }
 }

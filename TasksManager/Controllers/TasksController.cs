@@ -42,10 +42,11 @@ public class TasksController : Controller
                                 {
                                     Id = reader.GetInt32(0),
                                     Description = reader.GetString(1),
-                                    IsDone = reader.GetBoolean(2),
-                                    AuthorUsername = reader.GetString(3),
-                                    AssigneeUsername = reader.IsDBNull(4) ? "NO ASSIGNEE" : reader.GetString(4),
-                                    Title = reader.GetString(5),
+                                    AuthorUsername = reader.GetString(2),
+                                    AssigneeUsername = reader.IsDBNull(3) ? "NO ASSIGNEE" : reader.GetString(3),
+                                    Title = reader.GetString(4),
+                                    Status = new TaskItem.TaskStatus(reader.GetString(5)),
+                                    CanBeDeleted = (reader.GetString(2) == reader.GetString(3)) || havePermission()
                                 }
                             );
                         }
@@ -115,10 +116,11 @@ public class TasksController : Controller
             using (var command = connection.CreateCommand())
             {
                 connection.Open();
-                command.CommandText = $"INSERT INTO Task (Description, Done, Author, Assignee, Title) VALUES (@description, false, @username, @username, @title)";
+                command.CommandText = $"INSERT INTO Task (Description, Author, Assignee, Title, Status) VALUES (@description, @username, @username, @title, @status)";
                 command.Parameters.AddWithValue("@title", task.Title);
                 command.Parameters.AddWithValue("@description", task.Description);
                 command.Parameters.AddWithValue("@username", HttpContext.Session.GetString("Username"));
+                command.Parameters.AddWithValue("@status", TaskItem.TaskStatus.Todo.Value);
                 command.ExecuteNonQuery();
             }
         }
@@ -134,20 +136,6 @@ public class TasksController : Controller
             {
                 connection.Open();
                 command.CommandText = $"DELETE FROM Task WHERE Id={Id}";
-                command.ExecuteNonQuery();
-            }
-        }
-        return Redirect("http://localhost:5041/Tasks"); 
-    }
-
-    public ActionResult IsDone(int Id, bool Done)
-    {
-         using (SqliteConnection connection = new SqliteConnection("Data Source=db.sqlite"))
-        {
-            using (var command = connection.CreateCommand())
-            {
-                connection.Open();
-                command.CommandText = $"UPDATE Task SET Done={Done} WHERE Id={Id}";
                 command.ExecuteNonQuery();
             }
         }
@@ -199,17 +187,32 @@ public class TasksController : Controller
     }
 
     [HttpPost]
-    public RedirectResult Assign(TasksViewModel viewModel, int taskId)
+    public RedirectResult Assign(string selectedAssignee, int taskId)
     {
-        Console.WriteLine(viewModel.SelectedAssignee);
-        Console.WriteLine(taskId);
         using (SqliteConnection connection = new SqliteConnection("Data Source=db.sqlite"))
         {
             using (var command = connection.CreateCommand())
             {
                 connection.Open();
                 command.CommandText = $"UPDATE Task SET Assignee=@assignee WHERE Id={taskId}";
-                command.Parameters.AddWithValue("@assignee", viewModel.SelectedAssignee);
+                command.Parameters.AddWithValue("@assignee", selectedAssignee);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        return Redirect("http://localhost:5041/Tasks");  
+    }
+
+    [HttpPost]
+    public RedirectResult ChangeStatus(string selectedStatus, int taskId)
+    {
+        using (SqliteConnection connection = new SqliteConnection("Data Source=db.sqlite"))
+        {
+            using (var command = connection.CreateCommand())
+            {
+                connection.Open();
+                command.CommandText = $"UPDATE Task SET Status=@status WHERE Id={taskId}";
+                command.Parameters.AddWithValue("@status", selectedStatus);
                 command.ExecuteNonQuery();
             }
         }

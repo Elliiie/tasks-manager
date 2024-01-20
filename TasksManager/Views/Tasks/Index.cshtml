@@ -31,6 +31,7 @@
                         {
                             @Html.DropDownListFor(m => m.SelectedAssignee, new SelectList(Model.Usernames), "Select assignee");
                             @Html.Hidden("taskId", task.Id);
+                            @Html.Hidden("selectedAssignee", Model.SelectedAssignee);
                             <input type="submit" value="Assign" />
                         }
                     }
@@ -40,6 +41,7 @@
                     {
                         @Html.DropDownListFor(m => m.SelectedStatus, new SelectList(TaskItem.TaskStatus.All), "Select status");
                         @Html.Hidden("taskId", task.Id);
+                        @Html.Hidden("selectedStatus", @Model.SelectedStatus);
                         <input type="submit" value="Change" />
                     }
                 </div>

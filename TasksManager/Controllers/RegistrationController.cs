@@ -24,15 +24,9 @@ public class RegistrationController : Controller
                 {
                     connection.Open();
                     command.CommandText = $"INSERT INTO User VALUES (@username, @email, @password, @role)";
-                    command.Parameters.AddWithValue("@username", user.Username);
-                    command.Parameters.AddWithValue("@email", user.Email);
-
-                    using (SHA512 shaM = new SHA512Managed())
-                    {
-                        string passwordHash = GetStringFromHash(shaM.ComputeHash(Encoding.UTF8.GetBytes(user.Password)));
-                        command.Parameters.AddWithValue("@password", passwordHash);
-                    }
-
+                    command.Parameters.AddWithValue("@username", user.Username.Trim());
+                    command.Parameters.AddWithValue("@email", user.Email.Trim());
+                    command.Parameters.AddWithValue("@password", StringHelper.ComputeHash(user.Password));
                     command.Parameters.AddWithValue("@role", Role.User.Value);
 
                     command.ExecuteNonQuery();
@@ -60,7 +54,7 @@ public class RegistrationController : Controller
             {
                 connection.Open();
                 command.CommandText = "SELECT * FROM USER WHERE Email=@email";
-                command.Parameters.AddWithValue("@email", email);
+                command.Parameters.AddWithValue("@email", email.Trim());
 
                 int rows = command.ExecuteNonQuery();
                 if (rows > 0)
@@ -70,15 +64,5 @@ public class RegistrationController : Controller
             }
         }
         return IsUserExist;
-    }
-
-    private static string GetStringFromHash(byte[] hash)
-    {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < hash.Length; i++)
-        {
-            result.Append(hash[i].ToString("X2"));
-        }
-        return result.ToString();
     }
 }
